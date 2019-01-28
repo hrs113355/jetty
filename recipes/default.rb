@@ -27,21 +27,21 @@ require 'fileutils'
 #  Reason why: webapps contexts are in /contexts in Jetty 7/8
 #  and in Jetty 9, there are in alongs with the war file (in /webapps)
 
-node.set['jetty']['webapps'] = "#{node['jetty']['home']}/webapps"
+node.default['jetty']['webapps'] = "#{node['jetty']['home']}/webapps"
 version = 8
 if /^9.*/.match(node['jetty']['version'])
   version = 9
-  node.set['jetty']['contexts'] = node['jetty']['webapps']
+  node.default['jetty']['contexts'] = node['jetty']['webapps']
 else
-  node.set['jetty']['contexts'] = "#{node['jetty']['home']}/contexts"
+  node.default['jetty']['contexts'] = "#{node['jetty']['home']}/contexts"
 end
 
 ################################################################################
 # Set node attributes
 
-node.set['jetty']['download']  = "#{node['jetty']['directory']}/jetty-distribution-#{node['jetty']['version']}.tar.gz"
-node.set['jetty']['extracted'] = "#{node['jetty']['directory']}/jetty-distribution-#{node['jetty']['version']}"
-node.set['jetty']['args'] =  (node['jetty']['args'] + ["-Djetty.port=#{node['jetty']['port']}", "-Djetty.logs=#{node['jetty']['logs']}"]).uniq
+node.default['jetty']['download']  = "#{node['jetty']['directory']}/jetty-distribution-#{node['jetty']['version']}.tar.gz"
+node.default['jetty']['extracted'] = "#{node['jetty']['directory']}/jetty-distribution-#{node['jetty']['version']}"
+node.default['jetty']['args'] =  (node['jetty']['args'] + ["-Djetty.port=#{node['jetty']['port']}", "-Djetty.logs=#{node['jetty']['logs']}"]).uniq
 
 ################################################################################
 # Create user and group
